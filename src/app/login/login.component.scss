@@ -1,16 +1,17 @@
 #login-container {
-  min-height: 100vh;
+  min-height: 80vh;
   min-width: 100vw;
-  color: white;
   position: relative;
-  background-image: url("../../assets/background2.png");
-  /* <a href='https://pngtree.com/so/flat'>flat png from pngtree.com</a>*/
+  background-image: url("../../assets/background3.jpg");
+  /*<span>Photo by <a href="https://unsplash.com/@hanmengqi?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">HAN Mengqi</a> on <a href="https://unsplash.com/s/photos/happy-group-hiking-forest?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>*/
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   .logo {
-    max-height: 260px;
-    margin: 0 auto;
+    max-height: 40px;
+    margin: 0 5px;
+    /*margin-bottom: 30px;
+    padding-top: 10px;*/
   }
   .notification {
     position: absolute;
