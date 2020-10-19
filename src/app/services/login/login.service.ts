@@ -33,6 +33,8 @@ export class LoginService {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null); 
+        // after logging in redirect user to dashboard
+        this.router.navigateByUrl('dashboard');
       } else if (res.Message) {
         // observe and respond with error message
         this.errorSubject.next(res.Message); 
