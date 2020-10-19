@@ -17,6 +17,9 @@ const httpOptions = {
 export class LoginService {
   // define our url
   url: any = 'http://localhost:4200/login';
+  // handling errors
+  errorSubject: any = new BehaviorSubject<any>(null);
+  errorMessage: any = this.errorSubject.asObservable();
 
   constructor(
     // pass httpclient  & router to constructor
@@ -29,6 +32,10 @@ export class LoginService {
     this.http.post(this.url, { Username, Password }, httpOptions).toPromise().then((res: any) => {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
+        this.errorSubject.next(null); 
+      } else if (res.Message) {
+        // observe and respond with error message
+        this.errorSubject.next(res.Message); 
       }
     });
   }
