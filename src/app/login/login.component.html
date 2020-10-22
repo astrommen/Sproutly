@@ -31,10 +31,10 @@
       ©2020 Banking App by Aja Strommen All rights reserved.
     </p>
   </div>
-  <div class="notification bg-teal-600 text-center py-4 lg:px-4">
+  <div *ngIf="error" class="notification bg-teal-600 text-center py-4 lg:px-4">
     <div class="p-2 bg-teal-400 items-center text-teal-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
       <span class="flex rounded-full bg-teal-700 uppercase px-2 py-1 text-xs font-bold mr-3">ERROR</span>
-      <span class="font-semibold mr-2 text-left flex-auto">Error message here</span>
+      <span class="font-semibold mr-2 text-left flex-auto">{{error}}</span>
     </div>
   </div>
   <div class="follow-us flex text-center"></div>
