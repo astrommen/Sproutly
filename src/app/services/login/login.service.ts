@@ -20,6 +20,8 @@ export class LoginService {
   // handling errors
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
+  userSubject: any = new BehaviorSubject<any>(null);
+  user: any = this.userSubject.asObservable();
 
   constructor(
     // pass httpclient  & router to constructor
@@ -34,6 +36,9 @@ export class LoginService {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null); 
         // after logging in redirect user to dashboard
+        if (res.data) {
+          this.userSubject.next(res.data);
+        }
         this.router.navigateByUrl('dashboard');
       } else if (res.Message) {
         // observe and respond with error message
