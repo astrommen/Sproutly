@@ -2,7 +2,7 @@
   <div class="w-full max-w-xs mb-64">
     <div class="logo-container flex items-center justify-center align-center text-white text-4xl font-bold mt-3 mb-24">
       SPROUTLY
-      <img src="../../assets/sprout-logo2.png" class="logo" />
+      <img src="../../assets/sprout-logo2.png" class="logo" alt="sproutly logo" />
     </div>
     <form class="bg-white shadow-md rounded-md p-8">
       <div class="mb-4">
@@ -17,21 +17,21 @@
           Password
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
+        <a class="inline-block align-baseline font-bold text-sm text-teal-600 hover:text-teal-800" href="#">
+          Forgot Password?
+        </a>
       </div>
-      <a class="inline-block align-baseline font-bold text-sm text-teal-600 hover:text-teal-800" href="#">
-        Forgot Password?
-      </a>
       <div class="flex items-center justify-between">
         <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmit()">
           Sign In
         </button>
-        <div class="flex items-center justify-between mt-4">
-          <p class="inline-block align-baseline text-sm text-blue-500">Don't have an account?
-            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" [routerLink]="['/register']">
-              Sign up
-            </a>
-          </p>
-        </div>
+      </div>
+      <div class="flex items-center justify-between mt-4">
+        <p class="inline-block align-baseline text-sm text-teal-500">Don't have an account?
+          <a class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800" [routerLink]="['/register']">
+            Sign up
+          </a>
+        </p>
       </div>
     </form>
     <p class="text-center text-white text-xs">
