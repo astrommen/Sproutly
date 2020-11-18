@@ -14,9 +14,9 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class UserService {
   // define our url
-  url: any = 'http://localhost:4200/login';
+  url: any = 'http://localhost:4200/api';
   // handling errors
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
