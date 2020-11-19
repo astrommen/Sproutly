@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -15,10 +16,19 @@ export class RegisterComponent implements OnInit {
     email: true,
     password: true,
   };
+  error = null;
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService
+      .errorSubject
+      .subscribe(errorMessage => {
+        this.error = errorMessage;
+      });
+  }
 
   validate(type: string): void {
     const usernamePattern = /^[\w-.]*$/;
@@ -52,5 +62,12 @@ export class RegisterComponent implements OnInit {
       this.confirmPassword = Event.target.value;
     }
     this.validate(type);
+  }
+
+  onRegister(): void {
+    if (this.valid.username && this.valid.email && this.valid.password) {
+      this.userService
+        .register(this.username, this.email, this.password)
+    }
   }
 }
