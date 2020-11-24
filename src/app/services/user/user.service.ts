@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -66,11 +65,16 @@ export class UserService {
     });
   }
 
-  isAuthenticated(): boolean {
-    if (sessionStorage.getItem('jwt')){
-      return true;
-    } else {
-      return false;
-    }
+  getUser() {
+    const userId = sessionStorage.getItem('userId');
+    const jwtToken = sessionStorage.getItem('jwt');
+    const reqHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwtToken,
+      })
+    };
+
+    return this.http.get('${this.url}user/${userId}', reqHeader);
   }
 }
