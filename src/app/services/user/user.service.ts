@@ -38,8 +38,10 @@ export class UserService {
         // after logging in redirect user to dashboard
         if (res.data) {
           this.userSubject.next(res.data);
+          // save userID in session storage
+          sessionStorage.setItem('userId', res.data.ID);
         }
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('');
       } else if (res.Message) {
         // observe and respond with error message
         this.errorSubject.next(res.Message); 
@@ -47,15 +49,17 @@ export class UserService {
     });
   }
 
-  register(Username: string, Email: string, Password: string): any {
+  register(Username: string, Email: string, Password: string) {
     this.http.post(`${this.url}register`, { Username, Email, Password }).toPromise().then((res: any) => {
       if(res & res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
         if(res.data) {
           this.userSubject.next(res.data);
+          // save userID in session storage
+          sessionStorage.setItem('userId', res.data.ID);
         }
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('');
       } else if (res.Message) {
         this.errorSubject.next(res.Message);
       }

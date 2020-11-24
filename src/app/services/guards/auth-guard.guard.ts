@@ -1,27 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../user/user.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardGuard implements CanActivate {
+  url = 'http://localhost:4200/api/';
   constructor(
-    public login: UserService,
-    public router: Router) { }
-  
-    // canActivate(
-    // next: ActivatedRouteSnapshot,
-    // state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return true;
-    canActivate(): boolean {
-      if (!this.login.isAuthenticated()) {
-        return false;
-      } else {
-        return true;
-      }
+    private router: Router,
+    private http: HttpClient,
+  ) { }
+
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | any {
+    const userId = sessionStorage.getItem('userId');
+    const jwtToken = sessionStorage.getItem('jwt');
+    const reqHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwtToken,
+      })
+    };
+
+    if (userId && jwtToken) {
+      return this.http.get('${this.url}user/${userId}', reqHeader).pipe(
+        map(res => {
+          if (res['data']['ID'] === Number(userId)) {
+            return true;
+          } else {
+            this.router.navigateByUrl('login');
+            return false;
+          }
+        }),
+        catchError((err) => {
+          return of(false);
+        })
+      );
+    } else {
+      this.router.navigateByUrl('login');
+      return false;
     }
   }
+}
   
