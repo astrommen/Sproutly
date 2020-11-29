@@ -30,7 +30,8 @@ export class UserService {
 
   // login function to handle response; get a token, means user is logged in. Save token to session storage to keep user logged in only during session
   login(Username: string, Password: string): any {
-    this.http.post(`${this.url}login`, { Username, Password }, httpOptions).toPromise().then((res: any) => {
+    console.log(this.url) //ftp
+    this.http.post(`${this.url}/login`, { Username, Password }, httpOptions).toPromise().then((res: any) => {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null); 
@@ -49,7 +50,9 @@ export class UserService {
   }
 
   register(Username: string, Email: string, Password: string) {
-    this.http.post(`${this.url}register`, { Username, Email, Password }).toPromise().then((res: any) => {
+    console.log(this.url)
+
+    this.http.post(`${this.url}/register`, { Username, Email, Password }).toPromise().then((res: any) => {
       if(res & res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
@@ -75,6 +78,6 @@ export class UserService {
       })
     };
 
-    return this.http.get('${this.url}user/${userId}', reqHeader);
+    return this.http.get('${this.url}/user/${userId}', reqHeader);
   }
 }
