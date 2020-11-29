@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   validate(type: string): void {
     const usernamePattern = /^[\w-.]*$/;
-    const emailPattern = /\S+@+\.\S+/;
+    const emailPattern = /\S+@\S+\.\S+/;
 
     if (type === 'username') {
       if(this.username.length < 5) {
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
         this.valid.username = usernamePattern.test(this.username);
       }
     } else if (type === 'email') {
-      this.valid.email = emailPattern.test(this.username);
+      this.valid.email = emailPattern.test(this.email);
     } else if (type === ('confirmPassword' || 'password')) {
       if (this.password !== this.confirmPassword) {
         this.valid.password = false;

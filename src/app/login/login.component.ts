@@ -14,12 +14,12 @@ export class LoginComponent implements OnInit {
   error: any = null;
 
   constructor(
-    private loginService: UserService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     //subscribe to error message from LoginService
-    this.loginService
+    this.userService
     .errorMessage
     .subscribe(errorMessage => {
       this.error = errorMessage;
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.isUsernameValid) {
-      this.loginService
+      this.userService
       .login(this.username, this.password);
     }
   }
